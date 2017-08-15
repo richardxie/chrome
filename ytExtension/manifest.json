@@ -1,0 +1,20 @@
+﻿{
+	"manifest_version": 2,
+	"name": "雅堂投标插件",
+	"description": "用于快速的投资雅堂的资产标的",
+	"version": "0.0.1",
+	"background": { "scripts": ["js/jquery-2.0.0.min.js", "js/background.js"] },
+	"page_action": {
+		"default_icon": {
+			"19": "img/cnblogs_19.png",
+			"38": "img/cnblogs_38.png"
+		},
+		"default_title": "雅堂投标", // shown in tooltip
+		"default_popup": "html/popup.html"
+	},
+	"permissions" : ["tabs","https://jr.yatang.cn/","http://localhost/"],
+	"content_scripts":[{
+		"matches":["http://jr.yatang.cn/*", "https://jr.yatang.cn/*"],
+		"js":["js/jquery-2.0.0.min.js", "js/content_script.js"]
+	}]
+}
