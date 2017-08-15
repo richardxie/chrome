@@ -1,4 +1,4 @@
-﻿function getDomainFromUrl(url){
+function getDomainFromUrl(url){
 	var host = "null";
 	if(typeof url == "undefined" || null == url)
 		url = window.location.href;
@@ -9,9 +9,22 @@
 	return host;
 }
 
+function getBidFromUrl(url){
+	var bid = '';
+	if(typeof url == "undefined" || null == url)
+		url = window.location.href;
+	var regex = /https\:\/\/jr\.yatang\.cn\/Invest\/ViewBorrow\/ibid\/([0-9]{7})/;
+	var match = url.match(regex);
+	if(typeof match != "undefined" && null != match)
+		bid = match[1];
+	return bid;
+}
+
 function checkForValidUrl(tabId, changeInfo, tab) {
-	if(getDomainFromUrl(tab.url).toLowerCase()=="jr.yatang.cn"){
-		chrome.pageAction.show(tabId);
+	var url = tab.url;
+	if(getDomainFromUrl(url).toLowerCase()=="jr.yatang.cn"){
+		if(getBidFromUrl(url) != '')
+			chrome.pageAction.show(tabId);
 	}
 };
 

@@ -1,4 +1,4 @@
-﻿
+
 
 var postInfo = $("div.postDesc");
 if(postInfo.length!=1){
