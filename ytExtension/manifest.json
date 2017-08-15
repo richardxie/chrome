@@ -10,7 +10,7 @@
 			"38": "img/cnblogs_38.png"
 		},
 		"default_title": "雅堂投标", // shown in tooltip
-		"default_popup": "js/popup.html"
+		"default_popup": "html/popup.html"
 	},
 	"permissions" : ["tabs","https://jr.yatang.cn/","http://localhost/"],
 	"content_scripts":[{

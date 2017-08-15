@@ -35,9 +35,10 @@ chrome.tabs.getCurrent(function(tab){
 var articleData = {};
 articleData.error = "加载中...";
 chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
-	if(request.type!=="cnblog-article-information")
-		console.log("无效的消息类型：%s", request.type);
+	if( request.type !== "cnblog-article-information" ) {
+		console.log( "无效的消息类型：%s", request.type );
 		return;
+	}
 	articleData = request;
 	articleData.firstAccess = "获取中...";
 	if(!articleData.error){

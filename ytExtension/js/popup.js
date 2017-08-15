@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	}else{
 		$("#message").hide();
 		$("#content-title").text(data.title);
-		$("#content-author").text(data.author);
-		$("#content-date").text(data.postDate);
+		$("#content-author").text(data.amt);
+		$("#content-date").text(data.borrowtype);
 		$("#content-first-access").text(data.firstAccess);
 	}
 });
