@@ -12,7 +12,7 @@
 		"default_title": "雅堂投标", // shown in tooltip
 		"default_popup": "html/popup.html"
 	},
-	"permissions" : ["tabs","https://jr.yatang.cn/","http://localhost/"],
+	"permissions" : ["cookies", "tabs", "*://jr.yatang.cn/*","http://localhost/"],
 	"content_scripts":[{
 		"matches":["https://jr.yatang.cn/Invest/ViewBorrow/ibid/*"],
 		"js":["js/jquery-2.0.0.min.js", "js/content_script.js"]

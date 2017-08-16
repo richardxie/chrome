@@ -29,33 +29,43 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 };
 
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
-chrome.tabs.getCurrent(function(tab){  
- console.log(tab);    
- });
-var articleData = {};
-articleData.error = "加载中...";
+
+var investData = {};
+investData.error = "加载中...";
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendRequest){
 	if( request.type !== "cnblog-article-information" ) {
 		console.log( "无效的消息类型：%s", request.type );
 		return;
 	}
-	articleData = request;
-	articleData.firstAccess = "获取中...";
-	if(!articleData.error){
+	investData = request;
+	investData.firstAccess = "获取中...";
+	if(!investData.error){
+		var requestData = {
+			'investMoney': '',
+            'borrowNum': investData.borrowNum,
+            'pageNum': '1'
+		};
+
 		$.ajax({
-			url: "http://localhost/first_access.php",
+			url: "https://jr.yatang.cn/Ajax/getUserCoupon",
 			cache: false,
 			type: "POST",
-			data: JSON.stringify({url:articleData.url}),
-			dataType: "json"
+			data: requestData
 		}).done(function(msg) {
-			if(msg.error){
-				articleData.firstAccess = msg.error;
+			var jsonMsg = JSON.parse(msg);
+			if(jsonMsg.status == 0){
+				investData.firstAccess = '失败:' + jsonMsg.info;
 			} else {
-				articleData.firstAccess = msg.firstAccess;
+				coupons = jsonMsg.data.map(function(i){ 
+					return i.value + ":" + i.user_constraint;
+				});
+
+				investData.firstAccess = '成功:' + coupons;
+				investData.coupons = jsonMsg.data;
 			}
 		}).fail(function(jqXHR, textStatus) {
-			articleData.firstAccess = textStatus;
+			investData.firstAccess = textStatus;
 		});
 	}
 });
